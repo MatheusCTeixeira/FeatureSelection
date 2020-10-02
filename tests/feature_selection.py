@@ -245,7 +245,6 @@ def main():
     print("dataset loaded.", end="\r")
     print(" "*30, end="\r")
 
-    print(args)
 
     output = args.output[0]
     n_estimators = args.n_estimators[0]
