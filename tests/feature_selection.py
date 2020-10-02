@@ -292,7 +292,7 @@ def main():
     if classifier_type == "RF":
         classifier = RandomForestClassifier(n_estimators=n_estimators)
     elif classifier_type == "SVM":
-        classifier = SVC(probability=True)
+        classifier = SVC(probability=True, gamma="auto")
 
         
     fs = FS(classifier,
