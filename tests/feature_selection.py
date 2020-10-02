@@ -183,6 +183,20 @@ class FS:
         f = open(filename + "-population.pickle", "wb")
         pickle.dump(self._pop, f)
 
+def save_parameters(n_estimators, classifier_type, prob_crossover, 
+                    prob_mutation, population_size, tournament_size,
+                    sample_prop, random_state, max_generations, out):
+    with open("./runs/" + out + ".txt", "wt", encoding="utf-8") as f:
+        f.write(f"n_estimators: {n_estimators}\n")
+        f.write(f"classifier_type: {classifier_type}\n")
+        f.write(f"prob_crossover: {prob_crossover}\n")
+        f.write(f"prob_mutation: {prob_mutation}\n")
+        f.write(f"population_size: {population_size}\n")
+        f.write(f"tournament_size: {tournament_size}\n")
+        f.write(f"sample_prop: {sample_prop}\n")
+        f.write(f"random_state: {random_state}\n")
+        f.write(f"max_generations: {max_generations}\n")
+        f.write(f"out: {out}")
     
 def main():
     aparse = argparse.ArgumentParser()
@@ -267,7 +281,10 @@ def main():
     sample_prop = args.sample_prop[0]
     random_state = args.random_state[0]
     max_generations = args.max_generations[0]
-    
+
+    save_parameters(n_estimators, classifier_type, prob_crossover, prob_mutation,
+                     population_size, tournament_size, sample_prop, random_state,
+                     max_generations, output.split("/")[-1])
     
     print(output, n_estimators, classifier_type, prob_crossover, prob_mutation,
           population_size, tournament_size, sample_prop, random_state)
