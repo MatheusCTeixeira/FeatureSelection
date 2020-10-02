@@ -1,0 +1,73 @@
+\begin{thebibliography}{7}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Chandrashekar and Sahin(2014)]{Chandrashekar2014}
+Girish Chandrashekar and Ferat Sahin.
+\newblock {A survey on feature selection methods}.
+\newblock \emph{Computers and Electrical Engineering}, 40\penalty0
+  (1):\penalty0 16--28, 2014.
+\newblock ISSN 00457906.
+\newblock \doi{10.1016/j.compeleceng.2013.11.024}.
+\newblock URL \url{http://dx.doi.org/10.1016/j.compeleceng.2013.11.024}.
+
+\bibitem[Khalifa et~al.(2016)Khalifa, Yousef, {Sa{\c{c}}ar Demirci}, and
+  Allmer]{Khalifa2016}
+Waleed Khalifa, Malik Yousef, M{\"{u}}şerref~Duygu {Sa{\c{c}}ar Demirci}, and
+  Jens Allmer.
+\newblock {The impact of feature selection on one and two-class classification
+  performance for plant microRNAs}.
+\newblock \emph{PeerJ}, 2016\penalty0 (6):\penalty0 1--13, 2016.
+\newblock ISSN 21678359.
+\newblock \doi{10.7717/peerj.2135}.
+
+\bibitem[Khan and Madden(2014)]{Khan2014}
+Shehroz~S. Khan and Michael~G. Madden.
+\newblock {One-class classification: taxonomy of study and review of
+  techniques}.
+\newblock \emph{The Knowledge Engineering Review}, 29\penalty0 (3):\penalty0
+  345--374, jun 2014.
+\newblock ISSN 0269-8889.
+\newblock \doi{10.1017/S026988891300043X}.
+\newblock URL
+  \url{http://scholar.google.com/scholar?hl=en{\&}btnG=Search{\&}q=intitle:Technical+Forum+Group+on+Agents+in+Bioinformatics+1{\#}0
+  https://www.cambridge.org/core/product/identifier/S026988891300043X/type/journal{\_}article}.
+
+\bibitem[Liu and Motoda(1998)]{Liu1998}
+Huan Liu and Hiroshi Motoda.
+\newblock \emph{{Feature Selection for Knowledge Discovery and Data Mining}}.
+\newblock Springer US, Boston, MA, 1998.
+\newblock ISBN 978-1-4613-7604-0.
+\newblock \doi{10.1007/978-1-4615-5689-3}.
+\newblock URL \url{http://link.springer.com/10.1007/978-1-4615-5689-3}.
+
+\bibitem[Miao and Niu(2016)]{Miao2016}
+Jianyu Miao and Lingfeng Niu.
+\newblock {A Survey on Feature Selection}.
+\newblock \emph{Procedia Computer Science}, 91\penalty0 (Itqm):\penalty0
+  919--926, 2016.
+\newblock ISSN 18770509.
+\newblock \doi{10.1016/j.procs.2016.07.111}.
+\newblock URL \url{http://dx.doi.org/10.1016/j.procs.2016.07.111}.
+
+\bibitem[Perera and Patel(2019)]{Perera2019}
+Pramuditha Perera and Vishal~M. Patel.
+\newblock {Learning Deep Features for One-Class Classification}.
+\newblock \emph{IEEE Transactions on Image Processing}, 28\penalty0
+  (11):\penalty0 5450--5463, 2019.
+\newblock ISSN 19410042.
+\newblock \doi{10.1109/TIP.2019.2917862}.
+
+\bibitem[Zheng et~al.(2020)Zheng, Zhu, Wen, Zhu, Yu, and Gan]{Zheng2020}
+Wei Zheng, Xiaofeng Zhu, Guoqiu Wen, Yonghua Zhu, Hao Yu, and Jiangzhang Gan.
+\newblock {Unsupervised feature selection by self-paced learning
+  regularization}.
+\newblock \emph{Pattern Recognition Letters}, 132:\penalty0 4--11, 2020.
+\newblock ISSN 01678655.
+\newblock \doi{10.1016/j.patrec.2018.06.029}.
+\newblock URL \url{https://doi.org/10.1016/j.patrec.2018.06.029}.
+
+\end{thebibliography}

@@ -1,0 +1,193 @@
+\documentclass{article}
+
+\usepackage[a4paper]{geometry}
+
+\usepackage[square,numbers]{natbib}
+
+\usepackage{xcolor} %% texto com diferentes cores.
+
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{tabularx}
+\usepackage[portuguese]{babel}
+\usepackage[fixlanguage]{babelbib}
+
+\begin{document}
+
+\title{Proposta de Projeto - Computação Natural}
+\author{Matheus Cândido Teixeira}
+\maketitle
+
+\section{Introdução}
+%%% Falar sobre Falta de exemplos negativos.
+Muitos classificadores em {\itshape Machine Learning} (ML) podem ser
+classificados em duas categorias: classificadores \textit{multi-class} (MCC) ou
+\textit{one-class} (OCC). Os MCC, que pertencem a primeira categoria, são
+utilizados quando há amostras suficientes de todas as classes na qual o método
+deve ser capaz de classificar. Porém, há situações em que não é possível
+acumular uma quantidade estatísticamente significativa de exemplos de todas as
+classes para fazer treinamento dos algoritmos~\cite{Khalifa2016, Khan2014}. Para
+situações tais como estas, o OCC pode ser mais adequado, pois ele constroi um
+modelo preditivo a partir de exemplos de uma única classe.
+
+%% Falar sobre o OCC.
+O OCC diverge do MCC pelo fato de ele ser treinado para apenas uma classe.  A
+classe de treinamento é denominada como positivas ou classe alvo e as demais
+amostras que não possuem uma classificação (ou rótulo) são denominadas negativas
+ou \textit{aliens} \cite{Khan2014, Perera2019}. Atualmente, o OCC vem sendo
+aplicado a muitas áreas, como visão computacional, detecção de anomalias e
+processamento de imagens médicas, onde é comum haver mais amostras do
+comportamento normal do que de anomalias. Essa característica torna o OCC muito
+atrativo para diversas aplicações, porém um fator que afeta a performance dele
+é o excesso de \textit{features} que trazem pouca informação ou redundância.
+
+Ao construir um classificador é necessário treiná-lo com amostras das diversas
+classes. A capacidade de classificação está relacionada com capacidade de
+distinguir as diferenças entre os dados de cada classes. Os dados de entrada,
+denominados \textit{features}, determinam qual classe a
+amostra pertence. Portanto, é comum encontrar \textit{datasets} com inumeras
+\textit{features} para que o classificador possa extrair algum padrão dos dados
+e, assim, inferir a classe da amostra de entrada.
+
+%%% Falar sobre o excesso de features.
+Um problema associado ao excesso de \textit{features} é a presença de
+\textit{features} que não contribuem para a classificação. Isso pode ocorrer de
+duas maneiras: (1) algumas features do conjunto possuem muita correlação entre
+si ou (2) as features não possem nenhuma correlação com as classes de saída. O
+primeiro cenário ocorre pois uma váriavel é suficiente para descrever uma
+característica e as demais se tornam redundantes e passam a afetar negativamente
+a performance do classificador, pois acrescenta dados que não trazem ganho para
+a predição. O segundo cenário ocorre pois os excesso de features se comporta
+como ruído nos dados causando \textit{bias} e reduzindo a performance do
+classificador \cite{Chandrashekar2014, Miao2016, Liu1998, Zheng2020}.
+
+%%% Falar sobre a seleção de features e soluções.
+Para os algoritmos \textit{multi-class} a precisão não é significativamente
+afetada pelo excesso de \textit{features}, porém, para os algoritmos OCC, o
+efeito pode ser significativo~\cite{Perera2019}. Para resolver esse problema, um método utilizado
+é o Feature Selection (FS).  O FS busca reduzir o espaço dimensional do conjunto
+de \textit{features} para um subconjunto menor e ainda capaz de descrever os
+dados de entrada de modo eficiente, isso é alcançado pela remoção de \textit{features}
+que trazem pouca informação relevante para a classificação ou de \textit{features}
+reduntantes \cite{Chandrashekar2014}.  Alguns métodos de FS e as suas
+características são apresentadas na Seção~\ref{sec_revisao}.
+
+%%% Objetivo da pesquisa.
+O FS tem sido usado como uma forma de aumentar a performance do OCC.  Ele é
+usado para encontrar um subconjunto \textit{optimal} de \textit{features} para
+que o OCC obtenha uma performance comparável com o dos MCCs. Diversos algoritmos
+têm sido propostos, como \textit{random feature selection}~(RFS),
+\textit{selecting features from clusters}~(SFC), \textit{selecting the highest
+  information gain from feature clusters}~(HIC) \cite{Khalifa2016}, porém apenas
+um foi capaz de gerar um selecionar as \textit{features} de modo que o OCC
+obtivesse um desempenho próximo ao dos MCC.  Portanto, o objetivo deste trabalho
+é utilizar o algoritmo genético (GA) como uma heurística para encontrar
+subconjunto \textit{suboptimal} de \textit{ features} que maximizem a
+performance do OCC. O uso do GA para FS já foi feito em outros trabalhos, como
+em \cite{Chandrashekar2014}. A representação de cada indivíduo é da seguinte
+maneira. Um cromossomos representa um conjunto de \textit{features}, cada locus
+representa uma \textit{feature} e o gene \{0, 1\} representa a presença ou a
+ausência da \textit{feature}. Para avaliar o desempenho do sistema, ele é
+comparado com o trabalho de \citet{Khalifa2016}, onde os autores testaram 8
+diferentes algoritmos para FS, porém apenas um, SFC, foi capaz de gerar um
+subconjunto de \textit{features} no qual o OCC teve um desempenho comparável ao
+do MCC. O dataset no trabalho deles foi miRNA\footnote{http://www.mirbase.org/}
+e pode ser utilizado neste trabalho para comparar a qualidade do GA em FS em
+relação aos demais métodos utilizados.
+
+%%% Falar sobre a estrutura do trabalho.
+Este trabalho é dividido da seguinte maneira: A Seção~\ref{sec_trabalhos_rel}
+apresenta trabalhos relacionados e aplicações do FS em OCC. Na
+Seção~\ref{sec_revisao} é apresentado o estado-da-arte tanto dos algoritmos FS
+como dos algoritmos OCC. Na Seção~\ref{sec_metodologia} é apresentado a forma
+como a pesquisa foi desenvolvida. Na Seção~\ref{sec_resultados}, os resultados
+da pesquisa são apresentados. Por fim, na Seção~\ref{sec_conclusao}, os
+resultados da seção anterior são discutidos, e, também, é apresentado as
+conclusões obtidas nessa pesquisa.
+
+
+\section{Trabalhos relacionados} \label{sec_trabalhos_rel}
+\citet{Khalifa2016} utilizam OCC para detecção de pre-miRNA. Os autores
+identificam que o método mais comum na literatura era utilizar TCC para a
+classificação. Um problema que havia nessa aplicação era a falta de exemplos
+negativos para o treinamento.  A solução utilizada na literatura era selecionar
+partes aleatórias consideradas não-miRNA ou a partir de sequências geradas
+aleatoriamente.  Portanto, os autores sugeriram o uso de OCC para contornar a
+falta de exemplos negativos.  Além disso, eles também consideraram o impacto da
+quantidade de features (mais de 1000) na performance do OCC.  Assim, eles
+testram diferentes algoritmos de FS e compararam o efeito na performance da
+classificação feita por algoritmos TCC (o algoritmo utilizado foi o SVM)e
+OCC. Os resultados indicaram que o impacto do FS é muito mais significativo para
+o OCC do que para os TCCs e que, em geral, os TCC possuem melhor desempenho do
+que os OCC, porém com a escolha de um FS adequado, a performance do OCC se
+aproxima dos TCC. O algoritmo FS que apresentou melhor resultado foi o {\itshape
+  Selecting Features from Cluster} (SFC), onde tanto o TCC quanto o OCC
+atingiram mais de 95\% de precisão.
+
+\section{Revisão da literatura} \label{sec_revisao}
+%%% Falar sobre o estado da arte.
+Nesta seção é apresentado o estado-da-arte tanto para os algoritmos FS como para
+os OCC. Os trabalhos são classificados em duas seções: uma para abordar os
+algorimos FS e outra para os OCC.
+
+\subsection{{\itshape Feature Selection} (FS)}
+\citet{Chandrashekar2014} apresentam três tipos métodos para FS: \textit{Filter
+  Methods} (FM), \textit{Wrapper Methods} (WM) e \textit{Embedded Methods} (EM).
+Os FM utilizam técnicas de ranking para ordenar as variáveis para seleção.  Uma
+critério de ranking é utilizado para pontuar as features e remover as que estão
+abaixo de um threshold. Os métodos de ranking (MR) são aplicados antes da
+classificação para remover variáveis pouco relevantes (baseado na pontuação
+obtida). Uma vantagem dos MR é que eles são computacionalmente leves e evitam
+\textit{overfitting}. Uma desvantagem dos MR é que o subconjunto gerado pode não
+ser \textit{optimal} no sentido que pode haver features redundades entre si.  O
+WM utiliza um preditor (algoritmo de classificação) como um sub-elemento do
+método.  Este método seleciona um subconjunto de features e aplica um algoritmo
+de classificação tendo esse subconjunto como entreada. O desempenho do
+classificador é avaliado com base na performance que ele obteu para aquele
+subconjunto de entrada. O objetivo é determinar qual subconjunto de features
+maximiza o desempenho do classificador.  O total de subconjuntos possíveis é
+$2^k$, onde $k$ é a quantidade de features presentes no dataset. Devido a essa
+natureza exponencial, este é um problema NP-hard, por isso, algoritmos de busca
+(sequencial ou heurística) são empregados para encontrar um subconjunto de
+features de modo mais eficiente.  Por fim, o EM busca contornar o problema
+NP-hard do método WM. Nesse método ao invés do preditor ser um subelemento do
+FS, o FS é inserido no classificador durante a fase de treinamento. Esse método
+utiliza uma estatística denominada mutual information (MI), que é calculada como
+a diferença: $I(Y, X) = H(Y) - H(Y | X)$, onde $H(\cdot)$ é a medida de entropia
+de Shannon e $H(\cdot| X)$ é a entropia condicional\footnote{A formulação
+detalhada pode ser encontrada em \cite{Chandrashekar2014}}. O MI é empregado de
+forma que ele é maximizado entre a saída, $Y$, e uma feature de entrada $X_i$ e
+mínimizada entre features de entrada. A consequência disso é que são apenas
+mantidas as features que introduzem o máximo de informação para a predição,
+enquanto não possuem redundância entre si.
+
+%\citet{Centner1996} apresentam uma método para a eliminação de variáveis que não
+%trazem informações relevantes para a classificação. \textcolor{red}{Apresentar
+%  resultados.}
+
+\subsection{{\itshape One Class Classifiers} (OCC)}
+\citet{Khan2014} apresentam uma pesquisa sobre os OCCs. Nesse trabalho, os
+autores criaram uma taxonomia para o estudo de problemas OCCs. A taxonomia
+proposta é dividida em três categorias: dados disponíveis para treinamento,
+metodologia usada e o domínio de aplicação. A primeira categoria analisa qual a
+forma dos dados utilizados para treinamento, isto é, se apenas com dados
+positivos, com dados positivos e algumas poucas amostras de dados negativos (ou
+até mesmo artifialmente gerados) ou com dados positivos e amostras
+não-rotuladas. No que tange a metodologia de classificação, os autores
+identificam duas amplas categorias: One-Class Support Vector Machines (OSVM) e
+não-OSVMs. A última categoria diz respeito a aplicação que o algoritmo OCC é
+aplicado: classificação de textual ou outra aplicação.
+
+\section{Metodologia} \label{sec_metodologia}
+
+\section{Resultados} \label{sec_resultados}
+
+\section{Discussão e Conclusão} \label{sec_conclusao}
+
+\bibliography{bibliography}
+\bibliographystyle{plainnat}
+
+\end{document}
