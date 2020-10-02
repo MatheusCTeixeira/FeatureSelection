@@ -92,8 +92,9 @@ um, SFC, foi capaz de gerar um selecionar as \textit{features} de modo que o OCC
 obtivesse um desempenho próximo ao dos MCC.  Portanto, o objetivo deste trabalho
 é utilizar o algoritmo genético (GA) como uma heurística para encontrar
 subconjunto \textit{suboptimal} de \textit{ features} que maximizem a
-performance do OCC. O uso do GA para FS já foi feito em outros trabalhos, como
-em \cite{Chandrashekar2014}. A representação de cada indivíduo é da seguinte
+performance do OCC e comparar a performance obtida dele com classificadores
+multi-classes. O uso do GA para FS já foi feito em outros trabalhos, como em
+\cite{Chandrashekar2014}. A representação de cada indivíduo é da seguinte
 maneira. Um cromossomos representa um conjunto de \textit{features}, cada locus
 representa uma \textit{feature} e o gene \{0, 1\} representa a presença ou a
 ausência da \textit{feature}. Desse modo, neste trabalho faz a análise do
@@ -192,10 +193,10 @@ e em seguida é apresentado os demais operadores genéticos, como o operador de
 seleção, de mutação e de \textit{crossover}.
 
 \subsection{Representação dos invíduos em CHCGA}
-O dataset utilizado neste trabalho contém 13 \textit{features} extraídas de um
+O dataset utilizado neste trabalho contém 31 \textit{features} extraídas de um
 conjunto de usuários que pertencem a 3 classes distintas: \textit{humans},
 \textit{bots} e \textit{news}. Portanto, para representar um indivíduo, um vetor
-com 13 elementos é utilizado. Cada elemento do vetor pode assumir um valor
+com 31 elementos é utilizado. Cada elemento do vetor pode assumir um valor
 binário, onde 1 indica que a \textit{feature} pertence ao subconjunto de
 \textit{features} utilizadas no treinamento do classificador e 0 indica a
 ausência.
@@ -220,13 +221,20 @@ entre 35-40\%, onde $N$ é o tamanho da população. O
 
 Com esse operadores definidos, o \textit{wrapper} FS é adotado para obter o
 subconjunto de \textit{features} que maximizem o valor da AUC do classificador
-\textit{One-Class}.
+\textit{One-Class}. O funcionamento da estrutura é da seguinte maneira: uma
+população inicial é gerada contendo $P_0$ indivíduos. Cada indivíduo possui 31
+genes (cada um representando uma \textit{feature}).  Quando o valor do gene for
+1, a \textit{feature} representada por esse gene é incluida no treinamento do
+classificador. Para o cálculo da \textit{fitness}, $50\%$ do dataset é utilizado
+como treinamento e o retante para teste. O valor da AUC resultante da predição
+do classificador após o treinamento é o valor da \textit{fitness}. Portanto,
+esse é um problema de maximização.
 
 \section{Resultados} \label{sec_resultados}
 
+
 \section{Discussão e Conclusão} \label{sec_conclusao}
 
-\bibliography{bibliography}
-\bibliographystyle{plainnat}
+\bibliography{bibliography} \bibliographystyle{plainnat}
 
 \end{document}
