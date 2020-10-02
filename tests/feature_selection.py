@@ -9,7 +9,7 @@ from sklearn.preprocessing import label_binarize
 from sklearn.multiclass import OneVsRestClassifier
 from scipy import interp
 from sklearn.metrics import roc_auc_score
-from numpy.random import Generator, PCG64
+from numpy import random
 import argparse
 import pickle
 import seaborn as sns
@@ -105,11 +105,11 @@ class FS:
 
         self._pop_sz = (pop_sz, X.shape[1])
         self._fitness = Fitness(classifier, X, y, prop_train, random_state)
-        self._rd = Generator(PCG64(random_state))
+        self._rd = random.RandomState(random_state)
         self._fitness_history = list()
 
     def generate_initial_population(self):
-        self._pop = self._rd.integers(0, 1, self._pop_sz, endpoint=True)
+        self._pop = self._rd.random_integers(0, 1, self._pop_sz)
         self._eval_fitness()
         self._fitness_history.append(self._pop_fitness)
 
@@ -118,28 +118,38 @@ class FS:
         new_gen = np.zeros(self._pop.shape, dtype=np.int)
         n_ind, ind_sz = self._pop_sz
 
-        for i in range(0, n_ind, 2):
+        # Fill with crossover: crossover_prob * size of population
+        n_crossover = int(self._crossover_prob * n_ind)
+        for i in range(0, n_crossover, 2):
             p1, p2 = self.crossover()
             new_gen[i], new_gen[i+1] = p1, p2
 
-        if n_ind % 2:
-            new_gen[-1] = self.crossover()[0]
+        if n_crossover % 2: # If crossover is odd, add just one.
+            new_gen[n_crossover - 1] = self.crossover()[0]
 
+        # Fill the rest.
+        for i in range(max(0, n_ind - n_crossover)):
+            i1 = self._selection()
+            new_gen[n_crossover + i] = self._pop[i1]
+
+        # Apply mutation over the population.
         for i in range(n_ind):
             self.mutation(new_gen[i])
-
+        
+        # Eval fitness.
         self._pop = np.vstack((self._pop, new_gen))
         self._eval_fitness()
-        self._pop = self._pop[:n_ind, :]
+        self._pop = self._pop[:n_ind]
         self._pop_fitness = self._pop_fitness[:n_ind]
         self._fitness_history.append(self._pop_fitness)
+        print(self._pop[0], self._pop_fitness[0])
 
 
     def crossover(self):
         i1, i2 = self._selection(), self._selection()
-        split_point = self._rd.integers(0, self._pop_sz[1])
-        temp = self._pop[i1,:]
-        p1, p2 = self._pop[i1,:], self._pop[i2,:]
+        split_point = self._rd.random_integers(0, self._pop_sz[1] - 1)
+        temp = np.copy(self._pop[i1])
+        p1, p2 = np.copy(self._pop[i1]), np.copy(self._pop[i2,:])
         p1[split_point:] = p2[split_point:]
         p2[:split_point] = temp[:split_point]
         return p1, p2
@@ -147,18 +157,17 @@ class FS:
 
     def mutation(self, p1):
         for i in range(self._pop_sz[1]):
-            if self._rd.random() > self._mut_prob:
+            if self._rd.random_sample() < self._mut_prob:
                 p1[i] = (p1[i] + 1) % 2
-
-        return p1
 
 
     def _eval_fitness(self):
         pop_fitness = self._fitness(self._pop)
         sorted_fitness = np.argsort(-pop_fitness)
 
-        self._pop = self._pop[sorted_fitness, :]
-        self._pop_fitness = pop_fitness
+        self._pop = self._pop[sorted_fitness]
+        self._pop_fitness = pop_fitness[sorted_fitness]
+
 
     def _selection(self):
         n_individuals = self._pop_sz[0]
@@ -168,9 +177,11 @@ class FS:
 
 
     def save(self, filename):
-        print(self._fitness_history)
-        f = open(filename, "wb")
+        f = open(filename + "-fitness.pickle", "wb")
         pickle.dump(self._fitness_history, f)
+
+        f = open(filename + "-population.pickle", "wb")
+        pickle.dump(self._pop, f)
 
     
 def main():
