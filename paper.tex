@@ -1,12 +1,12 @@
-\documentclass{article}
+\documentclass{paper}
 
 \usepackage[a4paper]{geometry}
 
-\usepackage[square,numbers]{natbib}
+\usepackage[square,numbers,sort]{natbib}
 
 \usepackage{xcolor} %% texto com diferentes cores.
 
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
 \usepackage{url}
 \usepackage{booktabs}
 \usepackage{float}
@@ -18,6 +18,8 @@
 
 \usepackage{algorithm}
 \usepackage{algpseudocode}
+
+\renewcommand{\it}[1]{\textit{#1}} %% Shorthand to italic.
 
 \begin{document}
 
@@ -230,7 +232,55 @@ como treinamento e o retante para teste. O valor da AUC resultante da predição
 do classificador após o treinamento é o valor da \textit{fitness}. Portanto,
 esse é um problema de maximização.
 
+\subsection{Classificadores}
+Para analisar o efeito do FS, diversos classificadores são verificados para
+analisar a variação da AUC pela técnica. Os classificadores avaliados são
+SVM, \textit{Logistic Regression}, \textit{Naive Bayes}, \textit{Random Forest},
+\textit{AdaBoost}, KNN e ocSVM (one-class SVM).
+
+
 \section{Resultados} \label{sec_resultados}
+Para verificar o efeito da FS e como ela afeta a AUC dos classificadores, os
+seguintes parâmetros são mantidos fixos entre os classificadores: $p_c=0.9$,
+$p_m=0.2$, $Pop=100$, $Ger=60$, $\mathrm{S_{prop}=0.5}$ e $k=7$. Os resultados
+indicam que o \textit{Random Forest} é o classificador que atinge o maior valor
+de fitness, isto conconda com vários trabalhos na literatura que o utilizam como
+classificador para o mesmo fim \cite{Bessi2016}. Entretanto, o classificador que
+apresentou o maior ganho na AUC foi o AAAAA, onde houve um ganho de NN\% no
+valor da AUC quando comparado com o dataset contendo todas as \it{features}. A
+\hyperref[tbl:auc]{Tabela~\ref*{tbl:auc}} apresenta a média e o desvio padrão
+resultante da várias iterações do FS, mantendo todos os parâmetros fixos e
+alterando apenas a semente que alimenta o gerador de números aleatórios. Os
+dados da tabela indicam que o classificador que atinge a maior aumento da AUC
+foi o AAAAA, porém o que é mais estável (menor variância) foi o BBBBBB. A razão
+para esse fato se deve ao fato de que o classificador BBBBBB utiliza $\cdots$
+{\color{red} Colocar uma justificativa.}
+
+\begin{table}[h]
+  \caption{Resultado do FS para diversos classificadores}\label{tbl:auc}
+  \centering
+  \begin{tabular}{c | c | c | c | c}
+    \toprule
+    Classificador & Média & Desvio Padrão & Máximo & Mínimo \\
+    \midrule
+    SVM & & & & \\
+    \it{Logistic Regression} & & & & \\
+    \it{Naive Bayes} & & & & \\
+    \it{Random Forest} & & & &\\
+    \it{AdaBoost} & & & &\\
+    KNN & & & &\\
+    ocSVM & & & &\\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Para avaliar o progresso ou convergência do FS ao longo das gerações, a Figura~1
+apresenta o valor máximo (borda superior), mínimo (borda inferior) e média de
+cada classificador. Como é possível verificar através da figura, a \it{fitness}
+é sempre decrescente, pois a população foi gerada com o eletismo ativado, o
+propósito para o uso de eletismo é para não perder boas soluções encontradas em
+gerações anteriores. {\color{red} Verificar a diferença entre classificadores
+  OCC e MCC}.
 
 
 \section{Discussão e Conclusão} \label{sec_conclusao}

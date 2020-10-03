@@ -1,9 +1,16 @@
-\begin{thebibliography}{7}
+\begin{thebibliography}{8}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Bessi and Ferrara(2016)]{Bessi2016}
+Alessandro Bessi and Emilio Ferrara.
+\newblock {Social bots distort the 2016 US Presidential election online
+  discussion}.
+\newblock \emph{First Monday}, 21, 2016.
+\newblock \doi{http://dx.doi.org/10.5210/fm.v21i11.7090}.
 
 \bibitem[Chandrashekar and Sahin(2014)]{Chandrashekar2014}
 Girish Chandrashekar and Ferat Sahin.
