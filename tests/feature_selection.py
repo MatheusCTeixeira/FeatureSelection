@@ -306,7 +306,7 @@ def main():
         classifier = SVC(probability=True, gamma="auto")
     elif classifier_type == "LogisticRegression":
         X = pd.DataFrame(data=preprocessing.scale(X))
-        classifier = LogisticRegression(max_iter=800)
+        classifier = LogisticRegression(max_iter=800, solver="lbfgs")
     elif classifier_type == "NaiveBayes":
         classifier = GaussianNB()
     elif classifier_type == "AdaBoost":
