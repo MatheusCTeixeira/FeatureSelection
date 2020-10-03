@@ -1,0 +1,10 @@
+n_estimators: 100
+classifier_type: RF
+prob_crossover: 0.8
+prob_mutation: 0.2
+population_size: 100
+tournament_size: 7
+sample_prop: 0.5
+random_state: 0
+max_generations: 60
+out: rf100_pc_80_pm_20_pop100_k7_gen60
