@@ -1,0 +1,10 @@
+n_estimators: 100
+classifier_type: AdaBoost
+prob_crossover: 0.9
+prob_mutation: 0.2
+population_size: 100
+tournament_size: 7
+sample_prop: 0.5
+random_state: 0
+max_generations: 60
+out: AdaBoost_pc90_pm20_pop100_k7_sp50_g60_rs_0
